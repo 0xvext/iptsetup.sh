@@ -53,6 +53,7 @@ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 # Allow established outgoing traffic
 echo 'Adding accept established outgoing rule...'
 iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+echo '###############################################################'
 
 # Prompt for blocking all other connections
 echo "Do you wish to block all other connections?"
