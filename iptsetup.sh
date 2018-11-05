@@ -4,7 +4,7 @@
 # Relies on iptables and iptables-persistent
 
 # Clear existing rules
-cho '###############################################################'
+echo '###############################################################'
 echo 'Clearing existing rules...'
 iptables -F INPUT
 iptables -F OUTPUT
