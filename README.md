@@ -1,8 +1,10 @@
+
 # iptsetup.sh
 A quick and dirty setup script for iptables
 
 Usage: ./iptsetup.sh
 
+```
 # ./iptsetup.sh 
 ###############################################################
 Adding accept loopback incoming/outgoing rules...
@@ -67,3 +69,4 @@ run-parts: executing /usr/share/netfilter-persistent/plugins.d/25-ip6tables save
 run-parts: /usr/share/netfilter-persistent/plugins.d/25-ip6tables exited with return code 1
 ###########################################################################################
 Finished!
+```
