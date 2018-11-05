@@ -26,7 +26,7 @@ read -p 'Enter a source IP/range (Single IP or CIDR): ' SOURCEIP
 echo '###############################################################'
 
 # Prompt for configuring SSH
-echo "Do you wish to enable SSH from $SOURCEIP?"
+echo "Do you want to enable SSH from $SOURCEIP?"
 select yn in "Yes" "No"; do
     case $yn in
         # Allow SSH from a single IP/range
@@ -36,7 +36,7 @@ select yn in "Yes" "No"; do
 done
 
 # Prompt for configuring HTTP/S
-echo "Do you wish to enable HTTP/S from $SOURCEIP?"
+echo "Do you want to enable HTTP/S from $SOURCEIP?"
 select yn in "Yes" "No"; do
     case $yn in
     # Allow HTTP/S from a single IP/range
@@ -46,7 +46,7 @@ select yn in "Yes" "No"; do
 done
 
 # Prompt for configuring custom port(s)
-read -p 'Do you wish to configure any additional (custom) ports? y/n: ' MOREPORTS
+read -p 'Do you want to configure any additional (custom) ports? y/n: ' MOREPORTS
 
 while [ $MOREPORTS = 'y' ]
 do
@@ -56,7 +56,7 @@ do
 	read -p 'Enter a custom single TCP port to allow: ' CUSTOMPORT
 	echo '###############################################################'
 
-	echo "Do you wish to enable TCP $CUSTOMPORT from $SOURCEIP?"
+	echo "Do you want to enable TCP $CUSTOMPORT from $SOURCEIP?"
 	select yn in "Yes" "No"; do
 	    case $yn in
 	        # Allow $CUSTOMPORT from a single IP/range
@@ -64,7 +64,7 @@ do
 	        No ) break;;
 	    esac
 	done
-	read -p 'Do you wish to configure another custom port? y/n: ' MOREPORTS
+	read -p 'Do you want to configure another custom port? y/n: ' MOREPORTS
 	echo '###############################################################'
 done
 
@@ -77,7 +77,7 @@ iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 echo '###############################################################'
 
 # Prompt for blocking all other connections
-echo "Do you wish to block all other connections?"
+echo "Do you want to block all other connections?"
 select yn in "Yes" "No"; do
     case $yn in
     # Block all undefined connections to interface
@@ -92,7 +92,7 @@ iptables -n -L -v --line-numbers
 echo '######################################################################################################################################################'
 
 # Prompt for saving rules as persistent
-echo "Do you wish to save changes to persistent rules?"
+echo "Do you want to save changes to persistent rules?"
 select yn in "Yes" "No"; do
     case $yn in
     # Save rules as currently set
