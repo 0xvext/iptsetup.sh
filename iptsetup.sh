@@ -54,8 +54,9 @@ do
 
 	# Prompt for configuring custom port(s) (future)
 	read -p 'Enter a custom single TCP port to allow: ' CUSTOMPORT
+	echo '###############################################################'
 
-	echo "Do you wish to enable from $SOURCEIP to TCP $CUSTOMPORT?"
+	echo "Do you wish to enable TCP $CUSTOMPORT from $SOURCEIP?"
 	select yn in "Yes" "No"; do
 	    case $yn in
 	        # Allow $CUSTOMPORT from a single IP/range
@@ -64,6 +65,7 @@ do
 	    esac
 	done
 	read -p 'Do you wish to configure another custom port? y/n: ' MOREPORTS
+	echo '###############################################################'
 done
 
 # Allow established and related incoming traffic
