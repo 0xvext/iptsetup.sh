@@ -45,7 +45,26 @@ select yn in "Yes" "No"; do
     esac
 done
 
-# Prompt for configuring custom port(s) (future)
+# Prompt for configuring custom port(s)
+read -p 'Do you wish to configure any additional (custom) ports? y/n: ' MOREPORTS
+
+while [ $MOREPORTS = 'y' ]
+do
+	MOREPORTS='n'
+
+	# Prompt for configuring custom port(s) (future)
+	read -p 'Enter a custom single TCP port to allow: ' CUSTOMPORT
+
+	echo "Do you wish to enable from $SOURCEIP to TCP $CUSTOMPORT?"
+	select yn in "Yes" "No"; do
+	    case $yn in
+	        # Allow $CUSTOMPORT from a single IP/range
+	        Yes ) echo '###############################################################';echo 'Adding accept TCP '$CUSTOMPORT' incoming rule...';iptables -I INPUT 3 -p tcp -s $SOURCEIP --dport $CUSTOMPORT -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept TCP '$CUSTOMPORT' established outgoing rule...';iptables -I OUTPUT 2 -p tcp --sport $CUSTOMPORT -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
+	        No ) break;;
+	    esac
+	done
+	read -p 'Do you wish to configure another custom port? y/n: ' MOREPORTS
+done
 
 # Allow established and related incoming traffic
 echo 'Adding accept established/related incoming rule...'
