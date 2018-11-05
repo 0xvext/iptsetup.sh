@@ -1,7 +1,14 @@
 #!/bin/bash
 
 # IP Tables quick-setup script
-# Relies on iptables and iptables-persistent being installed
+# Relies on iptables and iptables-persistent
+
+# Clear existing rules
+cho '###############################################################'
+echo 'Clearing existing rules...'
+iptables -F INPUT
+iptables -F OUTPUT
+iptables -F FORWARD
 
 # Configure default allow rules
 # Allow loopback connections
@@ -9,12 +16,6 @@ echo '###############################################################'
 echo 'Adding accept loopback incoming/outgoing rules...'
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-# Allow established and related incoming traffic
-echo 'Adding accept established/related incoming rule...'
-iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-# Allow established outgoing traffic
-echo 'Adding accept established outgoing rule...'
-iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 # Drop invalid input traffic
 echo 'Adding drop invalid incoming rule...'
 iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
@@ -45,6 +46,13 @@ select yn in "Yes" "No"; do
 done
 
 # Prompt for configuring custom port(s) (future)
+
+# Allow established and related incoming traffic
+echo 'Adding accept established/related incoming rule...'
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+# Allow established outgoing traffic
+echo 'Adding accept established outgoing rule...'
+iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # Prompt for blocking all other connections
 echo "Do you wish to block all other connections?"
