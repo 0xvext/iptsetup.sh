@@ -18,7 +18,7 @@ do
 	# Prompt for configuring custom port(s) (future)
 	read -p 'Enter a custom single TCP port to allow: ' CUSTOMPORT
 
-	echo "Do you wish to enable from $SOURCEIP to TCP $CUSTOMPORT?"
+	echo "Do you want to enable TCP $CUSTOMPORT from $SOURCEIP?"
 	select yn in "Yes" "No"; do
 	    case $yn in
 	        # Allow $CUSTOMPORT from a single IP/range
@@ -26,7 +26,7 @@ do
 	        No ) break;;
 	    esac
 	done
-	read -p 'Do you wish to configure another custom port? y/n: ' MOREPORTS
+	read -p 'Do you want to configure another custom port? y/n: ' MOREPORTS
 done
 
 # Print current rule set for review
@@ -35,7 +35,7 @@ iptables -n -L -v --line-numbers
 echo '######################################################################################################################################################'
 
 # Prompt for saving rules as persistent
-echo "Do you wish to save changes to persistent rules?"
+echo "Do you want to save changes to persistent rules?"
 select yn in "Yes" "No"; do
     case $yn in
     # Save rules as currently set
