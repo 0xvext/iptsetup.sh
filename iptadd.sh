@@ -22,7 +22,7 @@ do
 	select yn in "Yes" "No"; do
 	    case $yn in
 	        # Allow $CUSTOMPORT from a single IP/range
-	        Yes ) echo '###############################################################';echo 'Adding accept ' + $CUSTOMPORT + ' incoming rule...';iptables -A INPUT -p tcp -s $SOURCEIP --dport $CUSTOMPORT -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept ' + $CUSTOMPORT + ' established outgoing rule...';iptables -A OUTPUT -p tcp --sport $CUSTOMPORT -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
+	        Yes ) echo '###############################################################';echo 'Adding accept TCP '$CUSTOMPORT' incoming rule...';iptables -A INPUT -p tcp -s $SOURCEIP --dport $CUSTOMPORT -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept TCP '$CUSTOMPORT' established outgoing rule...';iptables -A OUTPUT -p tcp --sport $CUSTOMPORT -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
 	        No ) break;;
 	    esac
 	done
