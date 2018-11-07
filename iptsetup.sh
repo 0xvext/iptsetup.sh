@@ -40,7 +40,7 @@ echo "Do you want to enable HTTP/S from $SOURCEIP?"
 select yn in "Yes" "No"; do
     case $yn in
     # Allow HTTP/S from a single IP/range
-        Yes ) echo '###############################################################';echo 'Adding accept HTTP/S incoming rule...';iptables -A INPUT -p tcp -s $SOURCEIP -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept HTTP/S established outgoing rule...';iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
+        Yes ) echo '###############################################################';echo 'Adding accept HTTP/S incoming rule...';iptables -A INPUT -p tcp -s $SOURCEIP -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept HTTP/S established outgoing rule...';iptables -A OUTPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
         No ) break;;
     esac
 done
@@ -50,7 +50,7 @@ echo "Do you want to enable DNS from $SOURCEIP?"
 select yn in "Yes" "No"; do
     case $yn in
     # Allow DNS from a single IP/range
-        Yes ) echo '###############################################################';echo 'Adding accept DNS incoming rule...';iptables -A INPUT -p udp -s $SOURCEIP --dport 53 -j ACCEPT;echo 'Adding accept DNS outgoing rule...';iptables -A OUTPUT -p udp --dport 53 -j ACCEPT;echo '###############################################################';break;;
+        Yes ) echo '###############################################################';echo 'Adding accept DNS incoming rule...';iptables -A INPUT -p udp -s $SOURCEIP --dport 53 -j ACCEPT;echo 'Adding accept DNS outgoing rule...';iptables -A OUTPUT -p udp --sport 53 -j ACCEPT;echo '###############################################################';break;;
         No ) break;;
     esac
 done
