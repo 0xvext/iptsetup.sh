@@ -45,6 +45,16 @@ select yn in "Yes" "No"; do
     esac
 done
 
+# Prompt for configuring DNS
+echo "Do you want to enable DNS from $SOURCEIP?"
+select yn in "Yes" "No"; do
+    case $yn in
+    # Allow DNS from a single IP/range
+        Yes ) echo '###############################################################';echo 'Adding accept DNS incoming rule...';iptables -A INPUT -p udp -s $SOURCEIP --dport 53 -j ACCEPT;echo 'Adding accept DNS outgoing rule...';iptables -A OUTPUT -p udp --dport 53 -j ACCEPT;echo '###############################################################';break;;
+        No ) break;;
+    esac
+done
+
 # Prompt for configuring custom port(s)
 read -p 'Do you want to configure any additional (custom) ports? y/n: ' MOREPORTS
 
