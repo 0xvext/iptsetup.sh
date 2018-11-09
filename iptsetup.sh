@@ -2,6 +2,7 @@
 
 # IP Tables quick-setup script
 # Relies on iptables and iptables-persistent
+# Requires root/sudo privilege
 
 # Clear existing rules
 echo '###############################################################'
@@ -106,7 +107,7 @@ echo "Do you want to save changes to persistent rules?"
 select yn in "Yes" "No"; do
     case $yn in
     # Save rules as currently set
-        Yes ) echo '###########################################################################################';echo 'Saving rules...';netfilter-persistent save;break;;
+        Yes ) echo '###########################################################################################';echo 'Saving rules...';iptables-save > /etc/iptables/rules.v4;break;;
         No ) break;;
     esac
 done
