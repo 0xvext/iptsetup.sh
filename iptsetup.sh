@@ -6,7 +6,7 @@
 
 # Check for iptables-persistent, and if it isn't installed, install it
 if
-	[[ 'dpkg-query -l iptables-persistent' ]]; then
+	[[ 'dpkg-query -l iptables-persistent' == 1 ]]; then
 	apt install iptables-persistent -y
 fi
 
