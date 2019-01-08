@@ -4,11 +4,8 @@
 # Relies on iptables and iptables-persistent
 # Requires root/sudo privilege
 
-# Check for iptables-persistent, and if it isn't installed, install it
-if
-	[[ 'dpkg-query -l iptables-persistent' == 1 ]]; then
-	apt install iptables-persistent -y
-fi
+# Make sure iptables-persistent is installed
+apt install iptables-persistent 
 
 # Clear existing rules
 echo '###############################################################'
