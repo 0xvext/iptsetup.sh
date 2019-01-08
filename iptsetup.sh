@@ -114,7 +114,7 @@ echo "Do you want to save changes to persistent rules?"
 select yn in "Yes" "No"; do
     case $yn in
     # Save rules as currently set
-        Yes ) echo '###########################################################################################';echo 'Saving rules...';iptables-save > /etc/iptables/rules.v4;break;;
+        Yes ) echo '###########################################################################################';echo 'Saving rules...';iptables-save > /etc/iptables/rules.v4;ip6tables-save > /etc/iptables/rules.v6;break;;
         No ) break;;
     esac
 done
