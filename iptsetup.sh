@@ -13,6 +13,10 @@ echo 'Clearing existing rules...'
 iptables -F INPUT
 iptables -F OUTPUT
 iptables -F FORWARD
+ip6tables -F INPUT
+ip6tables -F OUTPUT
+ip6tables -F FORWARD
+
 
 # Configure default allow rules
 # Allow loopback connections
