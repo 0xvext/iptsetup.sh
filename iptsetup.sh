@@ -4,6 +4,12 @@
 # Relies on iptables and iptables-persistent
 # Requires root/sudo privilege
 
+# Check for iptables-persistent, and if it isn't installed, install it
+if
+	[$(dpkg-query -l iptables-persistent)] = 'dpkg-query: no packages found matching iptables-persistent';
+	apt install iptables-persistent -y
+fi
+
 # Clear existing rules
 echo '###############################################################'
 echo 'Clearing existing rules...'
