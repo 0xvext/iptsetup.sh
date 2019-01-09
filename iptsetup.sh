@@ -39,7 +39,7 @@ select yn in "Yes" "No"; do
     case $yn in
         # Allow SSH from a single IP/range
         Yes ) echo '###############################################################';echo 'Adding accept SSH incoming rule...';iptables -A INPUT -p tcp -s $SOURCEIP --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept SSH established outgoing rule...';iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
-        No ) break;;
+        No ) echo '###############################################################';break;;
     esac
 done
 
@@ -49,7 +49,7 @@ select yn in "Yes" "No"; do
     case $yn in
     # Allow HTTP/S from a single IP/range
         Yes ) echo '###############################################################';echo 'Adding accept HTTP/S incoming rule...';iptables -A INPUT -p tcp -s $SOURCEIP -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT;echo 'Adding accept HTTP/S established outgoing rule...';iptables -A OUTPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT;echo '###############################################################';break;;
-        No ) break;;
+        No ) echo '###############################################################';break;;
     esac
 done
 
@@ -59,7 +59,7 @@ select yn in "Yes" "No"; do
     case $yn in
     # Allow DNS from a single IP/range
         Yes ) echo '###############################################################';echo 'Adding accept DNS incoming rule...';iptables -A INPUT -p udp --dport 53 -j ACCEPT;echo 'Adding accept DNS outgoing rule...';iptables -A OUTPUT -p udp --sport 53 -j ACCEPT;echo '###############################################################';break;;
-        No ) break;;
+        No ) echo '###############################################################';break;;
     esac
 done
 
@@ -86,6 +86,7 @@ do
 	echo '###############################################################'
 done
 
+echo '###############################################################'
 # Allow established and related incoming traffic
 echo 'Adding accept established/related incoming rule...'
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
@@ -100,7 +101,7 @@ select yn in "Yes" "No"; do
     case $yn in
     # Block all undefined connections to interface
         Yes ) echo '###############################################################';echo 'Adding drop incoming rule...';iptables -A INPUT -i eth0 -j DROP;echo '######################################################################################################################################################';break;;
-        No ) break;;
+        No ) echo '###############################################################';break;;
     esac
 done
 
@@ -116,7 +117,7 @@ select yn in "Yes" "No"; do
     case $yn in
     # Save rules as currently set
         Yes ) echo '###########################################################################################';echo 'Saving rules...';iptables-save > /etc/iptables/rules.v4;ip6tables-save > /etc/iptables/rules.v6;break;;
-        No ) break;;
+        No ) echo '###########################################################################################';break;;
     esac
 done
 
