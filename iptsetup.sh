@@ -107,6 +107,7 @@ done
 # Print current rule set for review
 echo 'Printing rules for review...'
 iptables -n -L -v --line-numbers
+ip6tables -n -L -v --line-numbers
 echo '######################################################################################################################################################'
 
 # Prompt for saving rules as persistent
